@@ -1,0 +1,87 @@
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    background-image: url(/myapp/static/v1008-25-a.jpg);
+    background-size: 50%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+}
+
+
+h1 {
+    margin-bottom: 20px;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+    width: 85%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    width: 90%;
+    padding: 10px;
+    text-align: center;
+    align-items: center;
+    background-color: #017CEE;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+
+button:hover {
+    background-color: #005bb5;
+}
+a {
+    text-decoration: none;
+    color: #f7f7f7;
+}
+
+.sb{
+    width: 100px;
+    position: fixed;
+    top: 250px;
+
+}
+.sbs{
+    width: 120px;
+    position: fixed;
+    top:200px;
+    right: 720px;
+}
+p{
+    font-size: 20px;
+    font-weight: bold;
+    color: #017CEE;
+    position: fixed;
+    top:215px;
+    right: 752px;
+    
+}
+.button1{
+    width: 410px;
+    position: fixed;
+    top: 60%;
+    left: 640px;
+    align-items: center;
+}
