@@ -1,44 +1,94 @@
-from flask import Blueprint, render_template, request, redirect, url_for
-from .models import db, Message
+from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify
+from .models import db, User
+from flask_mail import Message
+from . import mail
 
-myapp = Blueprint('myapp', __name__, template_folder='templates', static_folder='static')
+myapp = Blueprint('myapp', __name__)
 
 @myapp.route('/')
 def index():
     return render_template('index.html')
 
-@myapp.route('/people', methods=['GET', 'POST'])
+@myapp.route('/signup', methods=['GET', 'POST'])
+def signup():
+    if request.method == 'POST':
+        username = request.form['new_username']
+        password = request.form['new_password']
+        confirm_password = request.form['confirm_password']
+        email = request.form['email']
+
+        if password != confirm_password:
+            flash('Passwords do not match!')
+            return redirect(url_for('myapp.signup'))
+
+        existing_user = User.query.filter_by(username=username).first()
+        if existing_user:
+            flash('Username already exists!')
+            return redirect(url_for('myapp.signup'))
+
+        new_user = User(username=username, email=email)
+        new_user.set_password(password)
+        db.session.add(new_user)
+        db.session.commit()
+
+        return jsonify({'message': '회원가입이 완료되었습니다.'})
+
+    return render_template('signup.html')
+
+@myapp.route('/reset', methods=['GET', 'POST'])
+def reset():
+    if request.method == 'POST':
+        data = request.json
+        username = data.get('username')
+        email = data.get('email')
+
+        user = User.query.filter_by(username=username, email=email).first()
+        if not user:
+            return jsonify({'error': 'Invalid username or email'}), 400
+
+        # 임시 비밀번호 생성
+        temp_password = 'temporarypassword'  # 실제로는 더 복잡한 비밀번호 생성 로직이 필요합니다.
+        user.set_password(temp_password)
+        db.session.commit()
+
+        # 이메일 전송
+        msg = Message('비밀번호 재설정', sender='your_email@gmail.com', recipients=[email])
+        msg.body = f'안녕하세요, {username}님. 임시 비밀번호는 {temp_password} 입니다.'
+        mail.send(msg)
+
+        return jsonify({'message': '비밀번호 재설정 이메일이 전송되었습니다.'})
+
+    return render_template('reset.html')
+
+@myapp.route('/login', methods=['POST'])
+def login():
+    username = request.form['username']
+    password = request.form['password']
+
+    user = User.query.filter_by(username=username).first()
+
+    if user and user.check_password(password):
+        return redirect(url_for('myapp.people'))
+    else:
+        return jsonify({'error': 'Invalid username or password'}), 401
+
+@myapp.route('/people')
 def people():
     return render_template('people.html')
 
-@myapp.route('/new/signup', methods=['GET', 'POST'], endpoint='signup')
-def signup():
-    return render_template('signup.html')
+@myapp.route('/users')
+def users():
+    users = User.query.all()
+    return render_template('users.html', users=users)
 
-@myapp.route('/new/reset', methods=['GET', 'POST'], endpoint='reset')
-def reset():
-    return render_template('reset.html')
-
-@myapp.route('/friend_list')
-def friend_list():
-    friends = [{"id": 1, "name": "Buddy"}, {"id": 2, "name": "Charlie"}]
-    return render_template('friend_list.html', friends=friends)
-
-@myapp.route('/chat_list/<int:friend_id>')
-def chat_list(friend_id):
-    chats = [{"id": 1, "name": "Buddy"}, {"id": 2, "name": "Charlie"}]
-    return render_template('chat_list.html', chats=chats, friend_id=friend_id)
-
-@myapp.route('/chat_room/<int:chat_id>', methods=['GET', 'POST'])
-def chat_room(chat_id):
-    if request.method == 'POST':
-        sender_id = request.form['sender_id']
-        receiver_id = request.form['receiver_id']
-        content = request.form['content']
-        new_message = Message(sender_id=sender_id, receiver_id=receiver_id, content=content)
-        db.session.add(new_message)
+@myapp.route('/delete_user/<int:user_id>', methods=['POST'])
+def delete_user(user_id):
+    user = User.query.get(user_id)
+    if user:
+        db.session.delete(user)
         db.session.commit()
-        return redirect(url_for('myapp.chat_room', chat_id=chat_id))
+        flash('User deleted successfully!')
+    else:
+        flash('User not found!')
+    return redirect(url_for('myapp.users'))
 
-    messages = Message.query.filter_by(receiver_id=chat_id).all()
-    return render_template('chat_room.html', messages=messages, chat_id=chat_id)

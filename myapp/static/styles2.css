@@ -1,21 +1,16 @@
-/* styles.css */
 body {
     font-family: Arial, sans-serif;
-    background-image: url(/myapp/static/v1008-25-a.jpg);
-    background-size: 50%;
+    background-image: url("/static/v1008-25-a.jpeg");
+    background-color: #f5f5dc; /* 강아지 색깔 배경색 */
+    background-repeat: repeat;
+    background-size: contain;
     margin: 0;
     padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    
 }
-
 
 h1 {
     margin-bottom: 20px;
@@ -33,6 +28,8 @@ input[type="email"] {
     margin: 10px 0;
     border: 1px solid #ccc;
     border-radius: 4px;
+    position: relative;
+    right: 100px;
 }
 
 button {
@@ -46,42 +43,56 @@ button {
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
+    position: relative;
+    right: 100px;
 }
-
 
 button:hover {
     background-color: #005bb5;
 }
+
 a {
     text-decoration: none;
     color: #f7f7f7;
 }
 
-.sb{
-    width: 100px;
-    position: fixed;
-    top: 250px;
+.point {
+    display: flex;
+    justify-content: center;
+}
 
+.dog_img {
+    display: flex;
+    justify-content: center;
 }
-.sbs{
-    width: 120px;
-    position: fixed;
-    top:200px;
-    right: 720px;
+
+.dog {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    left: 405px;
+    top: -90px;
 }
-p{
-    font-size: 20px;
+
+.Balloons {
+    width: 150px;
+    height: 100px;
+    position: relative;
+    left: 380px;
+    top: -130px;
+}
+
+p {
+    font-size: 25px;
     font-weight: bold;
     color: #017CEE;
-    position: fixed;
-    top:215px;
-    right: 752px;
-    
+    position: relative;
+    left: 270px;
+    top: -125px;
 }
-.button1{
-    width: 410px;
-    position: fixed;
-    top: 60%;
-    left: 640px;
-    align-items: center;
+
+.button1 {
+    position: relative;
+    right: 100px;
+    top: 20px;
 }

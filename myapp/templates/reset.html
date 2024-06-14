@@ -4,25 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>비밀번호재설정</title>
-    <link rel="stylesheet" href="{{ url_for('myapp.static', filename='styles2.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles2.css') }}">
     <script>
-     
         document.addEventListener('DOMContentLoaded', function() {
             const resetForm = document.getElementById('reset-form');
             
             resetForm.addEventListener('submit', function(event) {
                 event.preventDefault(); 
                 
-             
                 const username = document.getElementById('reset-username').value;
                 const email = document.getElementById('email').value;
-                
                 
                 if (!username || !email) {
                     alert('아이디와 이메일을 입력해주세요.');
                     return;
                 }
-                
                 
                 console.log('Sending reset request...');
                 
@@ -37,7 +33,6 @@
                 .then(data => {
                     console.log('Reset request response:', data);
                     alert('비밀번호 재설정 요청이 전송되었습니다.');
-                    
                 })
                 .catch(error => {
                     console.error('Error sending reset request:', error);
@@ -48,15 +43,18 @@
     </script>
 </head>
 <body>
-    <img class="sb" src="/myapp/static/fff.png">
-    <img class="sbs" src="/myapp/static/speech-bubble-150981_1280.png">
-    <p>얼른혀</p>
-    <form id="reset-form" action="/reset" method="POST">
-        <input type="text" id="reset-username" name="reset-username" placeholder="강아지 이름">
-        <input type="email" id="email" name="email" placeholder="이메일">
-        <button type="submit">비밀번호 재설정</button>
-        
-    </form>
-    <button class="button1"><a href="{{ url_for('myapp.index') }}">로그아웃</a></button>
+    <div class="point">
+        <div class="dog_img">
+            <img class="dog" src="{{ url_for('static', filename='fff.png') }}">
+            <img class="Balloons" src="{{ url_for('static', filename='speech-bubble-150981_1280.png') }}">
+            <p>얼른혀</p>
+        </div>
+        <form id="reset-form" action="{{ url_for('myapp.reset') }}" method="POST">
+            <input type="text" id="reset-username" name="reset-username" placeholder="강아지 이름">
+            <input type="email" id="email" name="email" placeholder="이메일">
+            <button type="submit">비밀번호 재설정</button>
+            <button class="button1"><a href="{{ url_for('myapp.index') }}">뒤로가기</a></button>
+        </form>
+    </div>
 </body>
 </html>

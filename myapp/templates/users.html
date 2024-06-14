@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원 목록</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-image: url("/static/v1008-25-a.jpeg");
+            background-color: #f5f5dc; /* 강아지 색깔 배경색 */
+            background-repeat: repeat;
+            background-attachment: fixed;
+            background-position: center;
+            background-size: contain;
+            text-align: center;
+        }
+        h1 {
+            color: #ff6a7b;
+            margin-bottom: 20px;
+        }
+        table {
+            margin: 0 auto;
+            border-collapse: collapse;
+            width: 80%;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+        th {
+            background-color: #017CEE;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .back-button {
+            margin-top: 20px;
+        }
+        .back-button a {
+            text-decoration: none;
+            color: white;
+        }
+        .back-button button {
+            background-color: #017CEE;
+            padding: 10px 20px;
+        }
+        .back-button button:hover {
+            background-color: #005bb5;
+        }
+    </style>
+</head>
+<body>
+    <h1>회원 목록</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>
+                    <form action="{{ url_for('myapp.delete_user', user_id=user.id) }}" method="POST" style="display:inline;">
+                        <button type="submit">삭제</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="back-button">
+        <button><a href="{{ url_for('myapp.index') }}">뒤로가기</a></button>
+    </div>
+</body>
+</html>

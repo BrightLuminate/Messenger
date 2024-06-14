@@ -1,22 +1,16 @@
-/* styles.css */
-
 body {
     font-family: Arial, sans-serif;
-    background-image: url(/myapp/static/v1008-25-a.jpg);
-    background-size: 50%;
+    background-image: url("/myapp/static/v1008-25-a.jpg");
+    background-color: #f5f5dc; /* 강아지 색깔 배경색 */
+    background-repeat: repeat;
+    background-size: contain;
     margin: 0;
     padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    
 }
-
 
 h1 {
     margin-bottom: 20px;
@@ -29,15 +23,17 @@ form {
 input[type="text"],
 input[type="password"],
 input[type="email"] {
-    width: 90%;
+    width: 85%;
     padding: 10px;
     margin: 10px 0;
     border: 1px solid #ccc;
     border-radius: 4px;
+    position: relative;
+    right: 100px;
 }
 
 button {
-    width: 94%;
+    width: 90%;
     padding: 10px;
     text-align: center;
     align-items: center;
@@ -47,44 +43,56 @@ button {
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
+    position: relative;
+    right: 100px;
 }
-
 
 button:hover {
     background-color: #005bb5;
 }
+
 a {
     text-decoration: none;
     color: #f7f7f7;
 }
 
-.sb{
+.point {
+    display: flex;
+    justify-content: center;
+}
+
+.dog_img {
+    display: flex;
+    justify-content: center;
+}
+
+.dog {
     width: 100px;
-    position: fixed;
-    top: 230px;
-    align-items: center;
+    height: 100px;
+    position: relative;
+    left: 530px;
+    top: -90px;
 }
-.sbs{
-    width: 120px;
-    position: fixed;
-    top:190px;
-    right: 710px;
-    
+
+.Balloons {
+    width: 150px;
+    height: 100px;
+    position: relative;
+    left: 520px;
+    top: -130px;
 }
-p{
-    font-size: 20px;
+
+p {
+    font-size: 25px;
     font-weight: bold;
     color: #017CEE;
-    position: fixed;
-    top:210px;
-    right: 750px;
-    
+    position: relative;
+    left: 415px;
+    top: -125px;
 }
-.button1{
-    width: 540px;
-    position: fixed;
-    top: 62%;
-    left: 586px;
-    align-items: center;
 
+.button1 {
+    position: relative;
+    right: 100px;
+    top: 20px;
 }

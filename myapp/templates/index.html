@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PeopleDog</title>
-    <link rel="stylesheet" href="{{ url_for('myapp.static', filename='styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <img src="/myapp/static/free-icon-dog-3843277.png">
+    
+    <img src="{{ url_for('static', filename='free-icon-dog-3843277.png') }}">
+    
     <div class="container" id="login-container">
-        <h1 style="color: #ff6a7b;">People <span style="color: #017CEE;">Dog</span></h1>
-        
-        
+       <h1 style="color: #ff6a7b;">People <span style="color: #017CEE;">Dog</span></h1>
             <div class="containers" id="login-container"> 
                 <input type="text" id="username"  placeholder="강아지 이름">
                 <input type="password" id="password"  placeholder="강아지 비밀번호">
@@ -19,19 +19,11 @@
             </div>
 
         <div class="button-container">
-            <a href="{{url_for('myapp.signup') }}">회원가입 </a>
-
-          <a href="{{url_for('myapp.reset')}}">비밀번호 재설정</a>
+            <a href="{{ url_for('myapp.signup') }}">회원가입 </a>
+            <a href="{{ url_for('myapp.reset') }}">비밀번호 재설정</a>
+            <a href="{{ url_for('myapp.users') }}">회원 목록</a>
         </div>
-    
     </div>
-
-    <div id="logout-container" style="display: none;">
-        <h2>Welcome!</h2>
-        <button onclick="logout()">Logout</button>
-    </div>
-
-    <script src="{{ url_for('myapp.static', filename='script.js') }}"></script>
-
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

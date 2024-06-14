@@ -1,12 +1,12 @@
 body {
     font-family: 'Arial', sans-serif;
-    background-image: url("/myapp/static/v1008-25-a.jpg");
+    background-image: url("/static/v1008-25-a.jpeg");
     background-color: #f5f5dc; /* 강아지 색깔 배경색 */
     background-repeat: repeat;
-    text-align: center;
     background-attachment: fixed;
     background-position: center;
     background-size: contain;
+    text-align: center;
 }
 
 .container {
@@ -80,4 +80,46 @@ img {
     width: 100px;
     position: relative;
     top: 102px;
+}
+
+/* 테이블 스타일 */
+table {
+    margin: 0 auto;
+    border-collapse: collapse;
+    width: 80%;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: left;
+}
+
+th {
+    background-color: #017CEE;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.back-button {
+    margin-top: 20px;
+}
+
+.back-button a {
+    text-decoration: none;
+    color: white;
+}
+
+.back-button button {
+    background-color: #017CEE;
+    padding: 10px 20px;
+}
+
+.back-button button:hover {
+    background-color: #005bb5;
 }

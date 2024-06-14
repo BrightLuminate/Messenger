@@ -4,25 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원가입</title>
-    <link rel="stylesheet" href="{{ url_for('myapp.static', filename='styles3.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles3.css') }}">
 </head>
 <body>
-    <img class="sb" src="/myapp/static/fff.png">
-    <img class="sbs" src="/myapp/static/speech-bubble-150981_1280.png">
-    <p>얼른혀</p>
-    <form id="signup-form" action="/signup" method="POST">
-        <input type="text" id="new-username" name="new-username" placeholder="새 강아지 이름">
-        <input type="password" id="new-password" name="new-password" placeholder="새 강아지 비밀번호">
-        <input type="password" id="confirm-password" name="confirm-password" placeholder="새 강아지 비밀번호 확인">
-        <button type="submit">회원가입</button>
-    </form>
-    <button class="button1"><a href="{{ url_for('myapp.index') }}">로그아웃</a></button>
+    <div class="point">
+        <div class="dog_img">
+            <img class="dog" src="{{ url_for('static', filename='fff.png') }}">
+            <img class="Balloons" src="{{ url_for('static', filename='speech-bubble-150981_1280.png') }}">
+            <p>얼른혀</p>
+        </div>
+             
+        <form id="signup-form" action="{{ url_for('myapp.signup') }}" method="POST">
+            <input type="text" id="new-username" name="new_username" placeholder="새 강아지 이름">
+            <input type="password" id="new-password" name="new_password" placeholder="새 강아지 비밀번호">
+            <input type="password" id="confirm-password" name="confirm_password" placeholder="새 강아지 비밀번호 확인">
+            <input type="email" id="email" name="email" placeholder="이메일">
+            <button type="submit">회원가입</button>
+            <button class="button1"><a href="{{ url_for('myapp.index') }}">뒤로가기</a></button>
+        </form>
     
-    <script src="/myapp/static/script2.js"></script> 
-
-    
-
-
-
+        <script src="{{ url_for('static', filename='script2.js') }}"></script> 
+    </div>
 </body>
 </html>
