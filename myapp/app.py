@@ -1,10 +1,10 @@
-from flask import Flask
-from .models import db
-from .views import myapp
-from flask_mail import Mail, Message
 import os
 from dotenv import load_dotenv
-
+from myapp import create_app, socketio
+from flask import Flask
+from .models import db
+from .main import myapp
+from flask_mail import Mail, Message
 
 
 

@@ -7,19 +7,16 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    
     <img src="{{ url_for('static', filename='free-icon-dog-3843277.png') }}">
-    
     <div class="container" id="login-container">
-       <h1 style="color: #ff6a7b;">People <span style="color: #017CEE;">Dog</span></h1>
-            <div class="containers" id="login-container"> 
-                <input type="text" id="username"  placeholder="강아지 이름">
-                <input type="password" id="password"  placeholder="강아지 비밀번호">
-                <button onclick="login()">멍멍</button>
-            </div>
-
+        <h1 style="color: #ff6a7b;">People <span style="color: #017CEE;">Dog</span></h1>
+        <div class="containers" id="login-container"> 
+            <input type="text" id="username" placeholder="강아지 이름">
+            <input type="password" id="password" placeholder="강아지 비밀번호">
+            <button onclick="login()">멍멍</button>
+        </div>
         <div class="button-container">
-            <a href="{{ url_for('myapp.signup') }}">회원가입 </a>
+            <a href="{{ url_for('myapp.signup') }}">회원가입</a>
             <a href="{{ url_for('myapp.reset') }}">비밀번호 재설정</a>
             <a href="{{ url_for('myapp.users') }}">회원 목록</a>
         </div>

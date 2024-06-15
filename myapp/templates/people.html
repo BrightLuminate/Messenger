@@ -3,12 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>채팅 목록</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles5.css') }}">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .header {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 700;
+            color: #333;
+        }
+        #friend-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        #friend-list li {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        #friend-list li:last-child {
+            border-bottom: none;
+        }
+        #friend-list li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            flex-grow: 1;
+            padding-left: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+        #friend-list li img {
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+        }
+        #friend-list li .status {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #00ff00;
+        }
+        #friend-list li .status.offline {
+            background: #ccc;
+        }
+        #friend-list li .time {
+            font-size: 12px;
+            color: #999;
+        }
+    </style>
 </head>
 <body>
-    <h1>친구목록</h1>
-
-
-
+    <div class="container">
+        <div class="header">채팅</div>
+        <ul id="friend-list">
+            {% for friend in friends %}
+            <li>
+                <img src="{{ friend.profile_image_url }}" alt="{{ friend.username }}">
+                <a href="{{ url_for('myapp.chat', friend_id=friend.id) }}">
+                    <div>{{ friend.username }}</div>
+                    <div class="time">{{ friend.last_message_time }}</div>
+                </a>
+                <span class="status {% if not friend.online %}offline{% endif %}"></span>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
 </body>
 </html>
