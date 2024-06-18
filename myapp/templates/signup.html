@@ -15,10 +15,10 @@
         </div>
              
         <form id="signup-form" action="{{ url_for('myapp.signup') }}" method="POST">
-            <input type="text" id="new-username" name="new_username" placeholder="새 강아지 이름">
-            <input type="password" id="new-password" name="new_password" placeholder="새 강아지 비밀번호">
-            <input type="password" id="confirm-password" name="confirm_password" placeholder="새 강아지 비밀번호 확인">
-            <input type="email" id="email" name="email" placeholder="이메일">
+            <input type="text" id="new-username" name="new_username" placeholder="새 강아지 이름" required>
+            <input type="password" id="new-password" name="new_password" placeholder="새 강아지 비밀번호" required>
+            <input type="password" id="confirm-password" name="confirm_password" placeholder="새 강아지 비밀번호 확인" required>
+            <input type="email" id="email" name="email" placeholder="이메일" required>
             <button type="submit">회원가입</button>
             <button class="button1"><a href="{{ url_for('myapp.index') }}">뒤로가기</a></button>
         </form>

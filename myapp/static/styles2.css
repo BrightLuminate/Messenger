@@ -1,7 +1,7 @@
 body {
     font-family: Arial, sans-serif;
     background-image: url("/static/v1008-25-a.jpeg");
-    background-color: #f5f5dc; /* 강아지 색깔 배경색 */
+    background-color: #1D1D1D; /* 강아지 색깔 배경색 */
     background-repeat: repeat;
     background-size: contain;
     margin: 0;
@@ -85,7 +85,7 @@ a {
 p {
     font-size: 25px;
     font-weight: bold;
-    color: #017CEE;
+    color: #ff6a7b;
     position: relative;
     left: 270px;
     top: -125px;

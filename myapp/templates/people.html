@@ -3,34 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>채팅 목록</title>
+    <title>친구 목록</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles5.css') }}">
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f9f9f9;
+            background-color: #1D1D1D;
             margin: 0;
             padding: 0;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            color: #fff;
+      
         }
         .container {
-            width: 100%;
-            max-width: 600px;
-            background: #fff;
+            width: 97%;
+            max-width: 100%;
+            background: #1D1D1D;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             overflow: hidden;
+            display: flex; 
+           
+            flex-direction: column;
+            margin-left: 60px; /* Adjust based on the width of the nav */
+            
+        }
+        .sub-header {
+            padding: 20px;
+            border-bottom: 1px solid #333;
+            text-align: left;
+            font-weight: 1000;
+            color: #fff;
+            
+            
         }
         .header {
-            padding: 15px;
-            border-bottom: 1px solid #eee;
-            text-align: center;
+            font-size: 50 px;
+            text-align: left;
+            font-weight: 1000;
+            color: #fff;
+            padding: 20px;
+        }
+        .sub-header {
             font-size: 18px;
-            font-weight: 700;
-            color: #333;
+            
+        }
+        .profile-row {
+            display: flex;
+            overflow-x: scroll;
+            padding: 15px;
+            border-bottom: 1px solid #333;
+        }
+        .profile-item {
+            margin-right: 15px;
+            text-align: center;
+            
+        }
+        .profile-item img {
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+        }
+        .profile-item span {
+            display: block;
+            margin-top: 5px;
+            font-size: 12px;
+            color: #999;
         }
         #friend-list {
             list-style-type: none;
@@ -41,14 +79,14 @@
             display: flex;
             align-items: center;
             padding: 15px;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid #333;
         }
         #friend-list li:last-child {
             border-bottom: none;
         }
         #friend-list li a {
             text-decoration: none;
-            color: #333;
+            color: #fff;
             font-weight: 500;
             flex-grow: 1;
             padding-left: 10px;
@@ -73,13 +111,206 @@
             font-size: 12px;
             color: #999;
         }
+        .main-profile {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #333;
+            cursor: pointer;
+            position: relative;
+            top: -15px;
+        }
+        .main-profile img {
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            margin-right: 15px;
+        }
+        .main-profile-info {
+            display: flex;
+            flex-direction: column;
+        }
+        .main-profile-info h2 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 700;
+        }
+        .main-profile-info a {
+            color: #999;
+            font-size: 14px;
+            text-decoration: none;
+        }
+        .search-bar {
+            display: none;
+            align-items: center;
+            padding: 5px;
+            border-radius: 5px;
+            margin: 10px 10px;
+            position: relative;
+            top: -20px;
+            
+        }
+        .search-bar input {
+            flex-grow: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #222;
+            color: #fff;
+            
+            
+        }
+        .search-bar input::placeholder {
+            color: #999;
+        }
+        .search-bar img {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        nav {
+            height: 100vh;
+            width: 60px;
+            background-color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 10px;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+        nav img {
+            width: 30px;
+            height: 30px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            
+        }
+        .nav-item {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .nav-item a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 10px;
+        }
+        .nav-item img {
+            width: 30px;
+            height: 30px;
+        }
+        .badge {
+            position: absolute;
+            top: 0;
+            right: 10px;
+            background-color: red;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+        }
+        .ims {
+            width: 88%;
+            height: 70%;
+            display: flex;
+            position: relative;
+            top: 480%;
+        }
+       
+
+
+        .rotating-image {
+            width: 2%;
+            height: 2%;
+            position: absolute;
+            left: 91%;
+            top: 18px;
+            filter: brightness(10) contrast(100);
+            position: fixed;
+            
+        }
+        
+        
     </style>
 </head>
 <body>
+    <nav>
+        <div class="nav-item">
+            <a href="{{ url_for('myapp.people') }}">
+                <img src="{{ url_for('static', filename='peple-removebg-preview.png') }}">
+            </a>
+        </div>
+        <div class="nav-item">
+            <a href="{{ url_for('myapp.rooms') }}">
+                <img src="{{ url_for('static', filename='speech.png') }}">
+                <div class="badge" id="notificationBadge">624</div>
+            </a>
+        </div>
+        <div class="nav-item">
+            <a href="{{ url_for('myapp.settings') }}">
+                <img alt="Gray Image" class="gray-to-white" src="{{ url_for('static', filename='setting.png') }}">
+            </a>
+        </div>
+        <div class="nav-item_2">
+            <img style="width: 39px;" class="ims" src="{{ url_for('static', filename='almam-removebg-preview (2).png') }}" onclick="toggleBadge()">
+        </div>
+        <div class="nav-item_2">
+            <a href="{{ url_for('myapp.index') }}">
+                <img style="width: 40px;" class="ims" src="{{ url_for('static', filename='house-310496_640.png') }}">
+            </a>
+        </div>
+    </nav>
     <div class="container">
-        <div class="header">채팅</div>
+		    <div class="nav-item_2">
+			      <img alt="Rotating Image" class="rotating-image"  src="{{ url_for('static', filename='magnifying-glass-1976105_640.png') }}" alt="Search Icon" onclick="toggleSearchBar()">
+		    </div>
+    
+    
+        <div class="header">친구</div>
+        <div class="search-bar" id="search-bar">
+            <img src="{{ url_for('static', filename='magnifying-glass-1976105_640.png') }}" alt="Search Icon">
+            <input type="text" id="search-input" placeholder="이름으로 검색" oninput="performSearch()">
+        </div>
+        
+        
+        <div class="main-profile" >
+            <img src="{{ main_profile.profile_image_url }}" alt="Main Profile">
+            
+            <div class="main-profile-info">
+                <h2>{{ main_profile.username }}</h2>
+                <a href="{{ main_profile.link }}">{{ main_profile.link_text }}</a>
+            </div>
+        </div>
+        <div class="sub-header">업데이트한 프로필</div>
+        <div class="profile-row">
+            {% for friend in updated_profiles %}
+            <div class="profile-item">
+                <img src="{{ friend.profile_image_url }}" alt="{{ friend.username }}">
+                <span>{{ friend.username }}</span>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="sub-header">생일인 친구</div>
         <ul id="friend-list">
-            {% for friend in friends %}
+            {% for friend in birthday_friends %}
+            <li>
+                <img src="{{ friend.profile_image_url }}" alt="{{ friend.username }}">
+                <a href="{{ url_for('myapp.chat', friend_id=friend.id) }}">
+                    <div>{{ friend.username }}</div>
+                    <div class="time">{{ friend.last_message }}</div>
+                </a>
+                <span class="status {% if not friend.online %}offline{% endif %}"></span>
+            </li>
+            {% endfor %}
+        </ul>
+        <div class="sub-header">즐겨찾기</div>
+        <ul id="friend-list">
+            {% for friend in favorites %}
             <li>
                 <img src="{{ friend.profile_image_url }}" alt="{{ friend.username }}">
                 <a href="{{ url_for('myapp.chat', friend_id=friend.id) }}">
@@ -90,6 +321,58 @@
             </li>
             {% endfor %}
         </ul>
+        <div class="sub-header">친구</div>
+        <ul id="friend-list">
+            {% for friend in friends %}
+            <li class="friend-item" data-name="{{ friend.username }}">
+                <img src="{{ friend.profile_image_url }}" alt="{{ friend.username }}">
+                <a href="{{ url_for('myapp.chat', friend_id=friend.id) }}">
+                    <div>{{ friend.username }}</div>
+                    <div class="time">{{ friend.last_message_time }}</div>
+                </a>
+                <span class="status {% if not friend.online %}offline{% endif %}"></span>
+            </li>
+            {% endfor %}
+        </ul>
     </div>
+
+    <script>
+        function toggleBadge() {
+            var badge = document.getElementById('notificationBadge');
+            if (badge.style.display === 'none') {
+                badge.style.display = 'block';
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+
+        function toggleSearchBar() {
+            const searchBar = document.getElementById('search-bar');
+            if (searchBar.style.display === 'none' || !searchBar.style.display) {
+                searchBar.style.display = 'flex';
+            } else {
+                searchBar.style.display = 'none';
+            }
+        }
+
+        function performSearch() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            const friends = document.querySelectorAll('.friend-item');
+            friends.forEach(friend => {
+                const name = friend.getAttribute('data-name').toLowerCase();
+                if (name.includes(query)) {
+                    friend.style.display = 'flex';
+                } else {
+                    friend.style.display = 'none';
+                }
+            });
+        }
+
+        // Initially hide the search bar
+        document.addEventListener("DOMContentLoaded", function() {
+            const searchBar = document.getElementById('search-bar');
+            searchBar.style.display = 'none';
+        });
+    </script>
 </body>
 </html>

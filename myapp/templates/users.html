@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원 목록</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles4.css') }}">
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-image: url("/static/v1008-25-a.jpeg");
-            background-color: #f5f5dc; /* 강아지 색깔 배경색 */
+            background-image: url("/myapp/static/free-icon-dog-3843277.png");
+            background-color: #1D1D1D; 
             background-repeat: repeat;
             background-attachment: fixed;
             background-position: center;
@@ -33,7 +33,7 @@
             text-align: left;
         }
         th {
-            background-color: #017CEE;
+            background-color: #1D1D1D;
             color: white;
         }
         tr:nth-child(even) {
@@ -85,7 +85,7 @@
                 <td>{{ user.email }}</td>
                 <td>
                     <form action="{{ url_for('myapp.delete_user', user_id=user.id) }}" method="POST" style="display:inline;">
-                        <button type="submit">삭제</button>
+                        <button type="submit"></button>
                     </form>
                 </td>
             </tr>

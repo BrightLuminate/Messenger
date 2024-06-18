@@ -9,7 +9,7 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f9f9f9;
+            background-color: #1D1D1D;
             margin: 0;
             padding: 0;
             display: flex;
@@ -19,10 +19,10 @@
         }
         .chat-container {
             width: 100%;
-            max-width: 600px;
-            height: 90%;
-            background: #fff;
-            border-radius: 10px;
+            max-width: 100%;
+            height: 100%;
+            background: #1D1D1D;
+            border-radius: 0px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             overflow: hidden;
             display: flex;
@@ -32,7 +32,7 @@
             display: flex;
             align-items: center;
             padding: 15px;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid #000000;
         }
         .chat-header img {
             border-radius: 50%;
@@ -47,18 +47,29 @@
             margin: 0;
             font-size: 18px;
             font-weight: 500;
+            color: #fff;
         }
         .chat-header .user-info span {
             font-size: 12px;
-            color: #888;
+            color: #fff;
         }
         #chat {
             flex-grow: 1;
             padding: 20px;
-            height: 300px;
             overflow-y: scroll;
             display: flex;
             flex-direction: column;
+            background-color: #1D1D1D;
+        }
+        #chat::-webkit-scrollbar {
+            width: 10px;
+        }
+        #chat::-webkit-scrollbar-track {
+            background: #1D1D1D;
+        }
+        #chat::-webkit-scrollbar-thumb {
+            background: #2B2B2B;
+            border-radius: 10px;
         }
         .message {
             margin: 10px 0;
@@ -87,7 +98,7 @@
             border-color: transparent transparent transparent #DCF8C6;
         }
         .message.received {
-            background-color: #FFF;
+            background-color: #1D1D1D;
             align-self: flex-start;
         }
         .message.received::after {
@@ -98,7 +109,7 @@
             transform: translateY(-50%);
             border-width: 10px;
             border-style: solid;
-            border-color: transparent #FFF transparent transparent;
+            border-color: transparent #1D1D1D transparent transparent;
         }
         .message img {
             border-radius: 50%;
@@ -118,6 +129,16 @@
             font-weight: bold;
             font-size: 12px;
         }
+        .delete-button {
+            background: transparent;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            font-size: 14px;
+            position: absolute;
+            top: 55px;
+            right: 10px;
+        }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -125,37 +146,74 @@
         .input-container {
             display: flex;
             padding: 10px;
-            border-top: 1px solid #eee;
-            background: #fff;
+            border-top: 1px solid #1D1D1D;
+            background: #1D1D1D;
         }
         #message-input {
             flex-grow: 1;
             padding: 10px;
-            border: 1px solid #ccc;
+            border: 1px solid #1D1D1D;
             border-radius: 20px;
             font-size: 16px;
+            background: #333;
+            color: #fff;
         }
         #send-button {
             padding: 10px 20px;
             border: none;
             border-radius: 20px;
-            background-color: #007BFF;
+            background-color: #2B2B2B;
             color: #fff;
             cursor: pointer;
             font-size: 16px;
             margin-left: 10px;
         }
         #send-button:hover {
-            background-color: #0056b3;
+            background-color: #2B2B2B;
+        }
+        #send-button:focus, #send-button:active {
+            outline: none;
+            box-shadow: 0 0 10px #fff;
+        }
+        h2 {
+            color: #fff;
+        }
+        #back-button {
+            background-color: #2B2B2B;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-right: 10px;
+          
+        }
+        #back-button:hover {
+            background-color: #2B2B2B;
+        }
+        #back-button:focus, #back-button:active {
+            outline: none;
+            box-shadow: 0 0 10px #fff;
+        }
+        .input-container:focus {
+            color: #000000;
+            border: #000000;
+            background-color: #000000;
+        }
+        a {
+            text-decoration: none;
+            color: #f7f7f7;
         }
     </style>
 </head>
 <body>
     <div class="chat-container">
         <div class="chat-header">
-            <img src="/myapp/static/dog.jpg" alt="{{ user.username }}">
+            <!-- <button id="back-button" onclick="window.location.href='{{ url_for('myapp.people') }}'">Back</button> -->
+            <button id="back-button"><a href="{{ url_for('myapp.people') }}">Back</a></button>
+            <img src="{{ user.profile_image_url }}" alt="{{ user.username }}">
             <div class="user-info">
-                <h2>블독</h2>
+                <h2>{{ user.username }}</h2>
                 <span>Active now</span>
             </div>
         </div>
@@ -176,20 +234,22 @@
             socket.on('message', function(data) {
                 const chat = document.getElementById('chat');
                 const msg = document.createElement('div');
-                msg.classList.add('message', data.username === "{{ user.username }}" ? 'sent' : 'received');
+                msg.classList.add('message', data.username === "최도현" ? 'sent' : 'received');
                 msg.innerHTML = `
                     <img src="${data.profile_image_url}" alt="${data.username}">
                     <div class="text">
                         <div class="name">${data.username}</div>
                         <div class="content">${data.msg}</div>
                     </div>
+                    ${data.username === "최도현" ? '<button class="delete-button">삭제</button>' : ''}
                 `;
                 chat.appendChild(msg);
                 chat.scrollTop = chat.scrollHeight;
 
-                // 거래 완료 메시지
-                if (data.msg.includes('거료 완료')) {
-                    alert('거래가 완료되었습니다.');
+                if (data.username === "최도현") {
+                    msg.querySelector('.delete-button').addEventListener('click', () => {
+                        chat.removeChild(msg);
+                    });
                 }
             });
 
@@ -202,8 +262,8 @@
                     const userData = {
                         msg: message,
                         room: "{{ room_id }}",
-                        username: "푸들",
-                        profile_image_url: "/myapp/static/dog.jpg"
+                        username: "최도현",
+                        profile_image_url: "{{ url_for('static', filename='jsj.jpeg') }}"
                     };
                     socket.emit('message', userData);
                     const chat = document.getElementById('chat');
@@ -211,14 +271,19 @@
                     msg.classList.add('message', 'sent');
                     msg.innerHTML = `
                         <img src="${userData.profile_image_url}" alt="${userData.username}">
-                        <div class="text">
+                                                <div class="text">
                             <div class="name">${userData.username}</div>
                             <div class="content">${userData.msg}</div>
                         </div>
+                        <button class="delete-button">삭제</button>
                     `;
                     chat.appendChild(msg);
                     chat.scrollTop = chat.scrollHeight;
                     messageInput.value = '';
+
+                    msg.querySelector('.delete-button').addEventListener('click', () => {
+                        chat.removeChild(msg);
+                    });
                 }
             });
 

@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>더보기</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles6.css') }}">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #1D1D1D;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100vh;
+        }
+        .container {
+            max-width: 100%;
+            height: 100%;
+            background: #1D1D1D;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex; 
+            flex-direction: column;
+            margin-top: 20px;
+            margin-left: 60px;
+            padding: 20px;
+            position: relative;
+            top: -30px;
+            
+        }
+        .header {
+            padding: 15px;
+            border-bottom: 1px solid #444;
+            text-align: left;
+            font-size: 24px;
+            font-weight: 700;
+        }
+        .profile {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #444;
+        }
+        .profile img {
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            margin-right: 15px;
+        }
+        .profile-info {
+            flex-grow: 1;
+        }
+        .profile-info h2 {
+            margin: 0;
+            font-size: 18px;
+        }
+        .profile-info p {
+            margin: 5px 0 10px;
+            font-size: 14px;
+        }
+        #subscribe-button {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #444;
+            color: #fff;
+            cursor: pointer;
+        }
+        .menu {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 15px;
+        }
+        .menu-item {
+            width: 25%;
+            text-align: center;
+            padding: 10px;
+        }
+        .menu-item img {
+            width: 30px;
+            height: 30px;
+            margin-bottom: 5px;
+        }
+        .menu-item span {
+            display: block;
+            font-size: 14px;
+        }
+        .footer {
+            padding: 15px;
+            border-top: 1px solid #444;
+            text-align: left;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .footer .info {
+            font-size: 14px;
+        }
+        #update-button {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #444;
+            color: #fff;
+            cursor: pointer;
+        }
+        #subscribe-button:hover, #update-button:hover {
+            background-color: #555;
+        }
+        #subscribe-button:focus, #update-button:focus {
+            outline: none;
+            box-shadow: 0 0 10px #fff;
+        }
+        nav {
+            height: 100vh;
+            width: 60px;
+            background-color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 10px;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+        nav img {
+            width: 30px;
+            height: 30px;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+        .nav-item {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .nav-item a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 10px;
+        }
+        .nav-item img {
+            width: 30px;
+            height: 30px;
+        }
+        .badge {
+            position: absolute;
+            top: 0;
+            right: 10px;
+            background-color: red;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+        }
+        .ims {
+            width: 88%;
+            height: 70%;
+            display: flex;
+            position: relative;
+            top: 600%;
+        }
+        .rotating-image {
+            width: 20px;
+            height: 20px;
+            position: fixed;
+            left: 91%;
+            top: 18px;
+            filter: brightness(10) contrast(100);
+        }
+        .search-bar {
+            display: none;
+            align-items: center;
+            padding: 5px;
+            border-radius: 5px;
+            margin: 10px 10px;
+        }
+        .search-bar input {
+            flex-grow: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #222;
+            color: #fff;
+        }
+        .search-bar input::placeholder {
+            color: #999;
+        }
+        .search-bar img {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-item">
+            <a href="{{ url_for('myapp.people') }}">
+                <img src="{{ url_for('static', filename='peple-removebg-preview.png') }}">
+            </a>
+        </div>
+        <div class="nav-item">
+            <a href="{{ url_for('myapp.rooms') }}">
+                <img src="{{ url_for('static', filename='speech.png') }}">
+                <div class="badge" id="notificationBadge">624</div>
+            </a>
+        </div>
+        <div class="nav-item">
+            <a href="{{ url_for('myapp.settings') }}">
+                <img alt="Gray Image" class="gray-to-white" src="{{ url_for('static', filename='setting.png') }}">
+            </a>
+        </div>
+        <div class="nav-item_2">
+            <img class="ims" src="{{ url_for('static', filename='almam-removebg-preview (2).png') }}" onclick="toggleBadge()">
+        </div>
+    </nav>
+
+    <div class="container">
+        <div style="color: #fff;" class="header">더보기</div>
+        <div class="search-bar" id="search-bar">
+            <img src="{{ url_for('static', filename='magnifying-glass-1976105_640.png') }}" alt="Search Icon">
+            <input type="text" id="search-input" placeholder="이름으로 검색" oninput="performSearch()">
+        </div>
+        <div class="profile">
+            <img src="{{ url_for('static', filename='jsj.jpeg') }}" alt="Profile Image">
+            <div class="profile-info">
+                <h2>최도현</h2>
+                <p>grace9904@nate.com</p>
+                <button id="subscribe-button">My 구독</button>
+            </div>
+        </div>
+        <div class="menu">
+            <div class="menu-item">
+                <img src="{{ url_for('static', filename='icon-next.png') }}" alt="Next">
+                <span>다음</span>
+            </div>
+            <div class="menu-item">
+                <img src="{{ url_for('static', filename='icon-mail.png') }}" alt="Mail">
+                <span>메일</span>
+            </div>
+            <div class="menu-item">
+                <img src="{{ url_for('static', filename='icon-calendar.png') }}" alt="Calendar">
+                <span>캘린더</span>
+            </div>
+            <div class="menu-item">
+                <img style="width: 100px;" src="{{ url_for('static', filename='icon-talk.svg') }}" alt="Talk">
+                <span>톡서랍</span>
+            </div>
+            <div class="menu-item">
+                <img src="{{ url_for('static', filename='icon-emoji.png') }}" alt="Emoji">
+                <span>이모티콘</span>
+            </div>
+            <div class="menu-item">
+                <img src="{{ url_for('static', filename='icon-gift.png') }}" alt="Gift">
+                <span>선물하기</span>
+            </div>
+            <div class="menu-item">
+                <img src="{{ url_for('static', filename='icon-shopping.png') }}" alt="Shopping">
+                <span>쇼핑하기</span>
+            </div>
+            <div class="menu-item">
+                <img src="{{ url_for('static', filename='icon-lab.png') }}" alt="Lab">
+                <span>실험실</span>
+            </div>
+            <div class="menu-item">
+                <img src="{{ url_for('static', filename='icon-settings.png') }}" alt="Settings">
+                <span>환경설정</span>
+            </div>
+            <div class="menu-item">
+                <img src="{{ url_for('static', filename='icon-help.png') }}" alt="Help">
+                <span>도움말</span>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="info">🎸카카오톡 정보</div>
+            <button id="update-button">업데이트</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('subscribe-button').addEventListener('click', function() {
+            alert('구독 버튼이 클릭되었습니다.');
+        });
+
+        document.getElementById('update-button').addEventListener('click', function() {
+            alert('업데이트 버튼이 클릭되었습니다.');
+        });
+
+        function toggleBadge() {
+            var badge = document.getElementById('notificationBadge');
+            if (badge.style.display === 'none') {
+                badge.style.display = 'block';
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+
+        function toggleSearchBar() {
+            const searchBar = document.getElementById('search-bar');
+            if (searchBar.style.display === 'none' || !searchBar.style.display) {
+                searchBar.style.display = 'flex';
+            } else {
+                searchBar.style.display = 'none';
+            }
+        }
+
+        function performSearch() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            const friends = document.querySelectorAll('.friend-item');
+            friends.forEach(friend => {
+                const name = friend.getAttribute('data-name').toLowerCase();
+                if (name.includes(query)) {
+                    friend.style.display = 'flex';
+                } else {
+                    friend.style.display = 'none';
+                }
+            });
+        }
+
+        // Initially hide the search bar
+        document.addEventListener("DOMContentLoaded", function() {
+            const searchBar = document.getElementById('search-bar');
+            searchBar.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
